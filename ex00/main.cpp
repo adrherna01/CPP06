@@ -6,7 +6,7 @@
 /*   By: adrherna <adrianhdt.2001@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 14:10:34 by adrherna          #+#    #+#             */
-/*   Updated: 2024/12/16 13:11:26 by adrherna         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:39:38 by adrherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ std::string testArray[] = {
 		"",		   // Empty string
 		"-.",		 // Malformed number
 		"a",
-		"234f",
+		"72",
+		"1",
 	};
 
 int main()

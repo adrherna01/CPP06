@@ -6,11 +6,12 @@
 /*   By: adrherna <adrianhdt.2001@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:40:57 by adrherna          #+#    #+#             */
-/*   Updated: 2024/12/16 13:11:40 by adrherna         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:40:17 by adrherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
+#include <cstddef>
 #include <ostream>
 #include <string>
 #include <sys/_types/_size_t.h>
@@ -52,7 +53,7 @@ bool isValid(const std::string& literal) {
 void toInt(const std::string& literal) {
 	try
 	{
-		int var = static_cast<int>(std::stoi(literal));
+		int var = static_cast<int>(std::stod(literal));
 		std::cout << "int: " << var << std::endl;
 	}
 	catch (const std::invalid_argument& e)
@@ -70,7 +71,7 @@ void toFloat(const std::string& literal) {
 	{
 		if (!isValid(literal))
 			throw std::invalid_argument("");
-		float var = static_cast<float>(std::stof(literal));
+		float var = static_cast<float>(std::stod(literal));
 		 std::cout << std::fixed << std::setprecision(1) << "float: " << var << "f" << std::endl;
 	}
 	catch (const std::invalid_argument& e)
@@ -88,7 +89,7 @@ void toDouble(const std::string& literal) {
 	{
 		if (!isValid(literal))
 			throw std::invalid_argument("");
-		double var = static_cast<double>(std::stod(literal));
+		double var = std::stod(literal);
 		std::cout << std::fixed << std::setprecision(1) << "double: " << var << std::endl;
 	}
 	catch (const std::invalid_argument& e)
@@ -102,9 +103,22 @@ void toDouble(const std::string& literal) {
 }
 
 void toChar(const std::string& literal) {
-	if (literal.length() == 1 && isprint(literal[0])) {
-		std::cout << "Converted to char: '" << literal[0] << "'" << std::endl;
-	} else {
-		std::cout << "Literal cannot be converted to a displayable char." << std::endl;
+	if (literal.length() == 1) {
+		char character = literal[0];
+		std::cout << "Converted to char: '" << character << "'" << std::endl;
+	}
+	else {
+		try {
+			int value = std::stoi(literal);
+			if (value >= 0 && value <= 255) {
+				char character = static_cast<char>(value);
+				std::cout << "Converted to char: '" << character << "'" << std::endl;
+			} else {
+				std::cout << "Value " << value << " is out of range for a char." << std::endl;
+			}
+		}
+		catch (...) {
+			std::cout << "Invalid argument: '" << literal << "' cannot be converted to a char." << std::endl;
+		}
 	}
 }
