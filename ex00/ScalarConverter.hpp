@@ -6,17 +6,12 @@
 /*   By: adrherna <adrianhdt.2001@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:25:09 by adrherna          #+#    #+#             */
-/*   Updated: 2024/12/16 12:49:35 by adrherna         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:14:50 by adrherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "iostream"
 #include <iomanip>
-
-// std::stoi (String to Integer)
-// std::stol / std::stoll (String to Long / Long Long)
-// std::stof (String to Float)
-// std::stod (String to Double)
 
 void	toInt(const std::string& literal);
 void	toFloat(const std::string& literal);
