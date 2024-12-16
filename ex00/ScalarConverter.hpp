@@ -6,11 +6,12 @@
 /*   By: adrherna <adrianhdt.2001@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:25:09 by adrherna          #+#    #+#             */
-/*   Updated: 2024/12/12 13:56:27 by adrherna         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:49:35 by adrherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "iostream"
+#include <iomanip>
 
 // std::stoi (String to Integer)
 // std::stol / std::stoll (String to Long / Long Long)
@@ -21,8 +22,11 @@ void	toInt(const std::string& literal);
 void	toFloat(const std::string& literal);
 void	toDouble(const std::string& literal);
 void	toChar(const std::string& literal);
+bool	isValid(std::string& literal);
 
 class ScalarConverter {
+	private:
+		ScalarConverter();
 	public:
 		static void convert(const std::string literal);
 };

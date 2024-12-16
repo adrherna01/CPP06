@@ -6,15 +6,16 @@
 /*   By: adrherna <adrianhdt.2001@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:40:57 by adrherna          #+#    #+#             */
-/*   Updated: 2024/12/12 14:52:50 by adrherna         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:11:40 by adrherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 #include <ostream>
+#include <string>
+#include <sys/_types/_size_t.h>
 
 void (*funcArray[])(const std::string&) = {toInt, toFloat, toDouble, toChar};
-
 
 void ScalarConverter::convert(const std::string literal)
 {
@@ -23,10 +24,36 @@ void ScalarConverter::convert(const std::string literal)
 		funcArray[i](literal);
 }
 
+bool isValid(const std::string& literal) {
+
+	if (literal == "-inf" || literal == "+inf" || literal == "inf" ||
+		literal == "-inff" || literal == "+inff" || literal == "inff" ||
+		literal == "nan" || literal == "nanf") {
+		return (true);
+	}
+
+	for (size_t i = 0; i < literal.length(); i++)
+	{
+		char ch = literal[i];
+
+		if (!((ch >= '0' && ch <= '9') || ch == '+' || ch == '-' || ch == '.' || ch == 'f')) {
+			return (false);
+		}
+
+		if (ch == 'f') {
+			if (i != literal.length() - 1) {
+				return (false);
+			}
+		}
+	}
+	return (true);
+}
+
 void toInt(const std::string& literal) {
 	try
 	{
-		std::cout << "to Int: " << std::stoi(literal) << std::endl;
+		int var = static_cast<int>(std::stoi(literal));
+		std::cout << "int: " << var << std::endl;
 	}
 	catch (const std::invalid_argument& e)
 	{
@@ -41,7 +68,10 @@ void toInt(const std::string& literal) {
 void toFloat(const std::string& literal) {
 	try
 	{
-		std::cout << "to Float: " << std::stof(literal) << std::endl;
+		if (!isValid(literal))
+			throw std::invalid_argument("");
+		float var = static_cast<float>(std::stof(literal));
+		 std::cout << std::fixed << std::setprecision(1) << "float: " << var << "f" << std::endl;
 	}
 	catch (const std::invalid_argument& e)
 	{
@@ -56,7 +86,10 @@ void toFloat(const std::string& literal) {
 void toDouble(const std::string& literal) {
 	try
 	{
-		std::cout << "to Double: " << std::stod(literal) << std::endl;
+		if (!isValid(literal))
+			throw std::invalid_argument("");
+		double var = static_cast<double>(std::stod(literal));
+		std::cout << std::fixed << std::setprecision(1) << "double: " << var << std::endl;
 	}
 	catch (const std::invalid_argument& e)
 	{
@@ -69,9 +102,9 @@ void toDouble(const std::string& literal) {
 }
 
 void toChar(const std::string& literal) {
-
-	if (literal.length() == 1)
-		std::cout << "Converted to char: " << literal[0] << std::endl;
-	else
-		std::cout << "Literal cannot be converted to char." << std::endl;
+	if (literal.length() == 1 && isprint(literal[0])) {
+		std::cout << "Converted to char: '" << literal[0] << "'" << std::endl;
+	} else {
+		std::cout << "Literal cannot be converted to a displayable char." << std::endl;
+	}
 }
