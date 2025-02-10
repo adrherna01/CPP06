@@ -6,7 +6,7 @@
 /*   By: adrherna <adrianhdt.2001@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:40:57 by adrherna          #+#    #+#             */
-/*   Updated: 2024/12/16 14:40:17 by adrherna         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:36:28 by adrherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,23 @@ void toChar(const std::string& literal) {
 			std::cout << "Invalid argument: '" << literal << "' cannot be converted to a char." << std::endl;
 		}
 	}
+}
+
+ScalarConverter::ScalarConverter() {
+	std::cout << "ScalarConverter constructor called (should never happen)." << std::endl;
+}
+
+ScalarConverter::~ScalarConverter() {
+	std::cout << "ScalarConverter destructor called (should never happen)." << std::endl;
+}
+
+ScalarConverter::ScalarConverter(const ScalarConverter& other) {
+	(void)other;
+	std::cout << "ScalarConverter copy constructor called (should never happen)." << std::endl;
+}
+
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
+	(void)other;
+	std::cout << "ScalarConverter copy assignment operator called (should never happen)." << std::endl;
+	return *this;
 }
